@@ -47,19 +47,74 @@
     
     }
 
-// const populateTodos2 = () => {
+    const getByUser = () => {
+        clearTodos();
 
-//     let todoSection = document.getElementById('container');
+        //need the value from html input (num-input)
+        const numInput = document.getElementById('num-input').valueAsNumber
 
-//     // let tdTitle = document.createTextNode(arrayOfTodos[0].title);
-//     // let tdComplete = document.createTextNode(arrayOfTodos[0].completed);
 
-//     let tdLine = `<b>Title:</b> ${arrayOfTodos[0].title} <i>status is</i> ${arrayOfTodos[0].completed} </div>';
+        // filter where userID = num-input
+        
+        // store the currently filtered todos in a variable
+        //
 
-//     let todoP = document.createElement('P');
+        const filteredArray = arrayOfTodos.filter((arr) => arr.userId === numInput && arr.completed == false );
 
-//     todoP.appendChild(tdLine)
 
-//  todoSection.innerHTML(tdLine);
+        // populate the LIs with the filtered list
+        for(let i = 0; i < filteredArray.length; i++){
 
-// }
+            // Find ol by id and put it in variable
+            let todoList = document.getElementById('todo-list');
+            
+            // Create an element for a list item - li
+            let todoItem = document.createElement('LI');
+    
+            //Create text element for the title
+            let todoTitle = document.createTextNode("User: " +filteredArray[i].userId + " Title: " +filteredArray[i].title);
+    
+            //Put the list item in the ol
+            todoItem.appendChild(todoTitle);
+            todoList.appendChild(todoItem);
+            }
+
+    }
+
+    const clearTodos = () => {
+        const todos = document.getElementsByTagName("OL");
+    
+  
+
+         // loops over the HTML Collection of TDs and clears out the Xs and Os
+        for (let i=0; i < todos.length; i++) {
+
+        // will log out the id of each square as it loops over them.
+        console.log(todos[i].id)
+
+        // sets the innerHTML to null to replace the "X" or "O"
+        todos[i].innerHTML=null;
+  }  
+
+
+    }
+
+    //  DONE - Using the assignment from yesterday, create a branch called: " Todo-Filtering ".
+    //  DONE - Fetch the same data.
+    //  DONE - Store the data in a variable.
+
+
+    // DONE - Add an input for the userID. This input should only take in a number from 1 - 10.
+    // DONE - Add a button that when clicked will:
+
+    // DONE - clear the previous todos from the view
+
+
+    // DONE - and populate it with only todos with the userID that matches the number inputted.
+    // DONE - then stores the currently filtered todos in a variable so that ...
+    // You can create two more buttons that when clicked:
+    
+    // removes those todos from the view
+    // and shows only todos that are either:
+    // completed
+    // not completed
