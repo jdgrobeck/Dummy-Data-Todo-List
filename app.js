@@ -18,9 +18,7 @@
         fetch('https://jsonplaceholder.typicode.com/todos')
         .then( (response) => response.json())
         .then( (json) => arrayOfTodos = json)
-        // .then(() => populateTodos())
-        // .then ( () => logTodos())
-        // .then(() => populateTodos2())
+       
     }
     
     const logTodos = () => {
@@ -49,22 +47,22 @@
 
     const getByUser = () => {
         clearTodos();
-
+    
         //need the value from html input (num-input)
         const numInput = document.getElementById('num-input').valueAsNumber
-
-
+    
+    
         // filter where userID = num-input
         
         // store the currently filtered todos in a variable
         //
-
+    
         const filteredArray = arrayOfTodos.filter((arr) => arr.userId === numInput && arr.completed == false );
-
-
+    
+    
         // populate the LIs with the filtered list
         for(let i = 0; i < filteredArray.length; i++){
-
+    
             // Find ol by id and put it in variable
             let todoList = document.getElementById('todo-list');
             
@@ -78,26 +76,64 @@
             todoItem.appendChild(todoTitle);
             todoList.appendChild(todoItem);
             }
-
-    }
-
-    const clearTodos = () => {
-        const todos = document.getElementsByTagName("OL");
     
-  
-
-         // loops over the HTML Collection of TDs and clears out the Xs and Os
-        for (let i=0; i < todos.length; i++) {
-
-        // will log out the id of each square as it loops over them.
-        console.log(todos[i].id)
-
-        // sets the innerHTML to null to replace the "X" or "O"
-        todos[i].innerHTML=null;
-  }  
-
-
     }
+
+const getCompletedByUser = () => {
+        clearTodos();
+        fetchTodos();
+
+        const numInput = document.getElementById('num-input').valueAsNumber
+
+        const filteredArray = arrayOfTodos.filter((arr) => arr.userId === numInput && arr.completed == true);
+        
+        printList(filteredArray);
+
+} 
+
+const getIncompleteByUser = () => {
+    clearTodos();
+    fetchTodos();
+
+    const numInput = document.getElementById('num-input').valueAsNumber
+    
+    const filteredArray = arrayOfTodos.filter((arr) => arr.userId == numInput & arr.completed == false);
+
+    printList(filteredArray);
+}
+
+const clearTodos = () => {
+    
+    const todos = document.getElementsByTagName("OL")    
+    // loops over the HTML Collection of LIs and clears out the todos
+    for (i=0; i < todos.length; i++) {
+      // sets the innerHTML to null to replace the todos
+      todos[i].innerHTML = null;
+    }  
+
+}
+
+const printList = (arr) => {
+    for(let i = 0; i < arr.length; i++) {
+
+        // Find the ol by ID and put it in a variable
+        let todoList = document.getElementById('todo-list');
+  
+        // Create and element for a list item - li
+        let todoItem = document.createElement('LI'); // <li></li>
+  
+        // create the text element for the title
+        let todoTitle = document.createTextNode("User: " + arr[i].userId + " Title: " + arr[i].title + " Completed: " + arr[i].completed);
+  
+        // put the list item in the ol
+        todoItem.appendChild(todoTitle); //<li>lorem ipsum</li>
+        todoList.appendChild(todoItem);  // puts the li inside the ol
+     }     
+    
+}
+
+
+
 
     //  DONE - Using the assignment from yesterday, create a branch called: " Todo-Filtering ".
     //  DONE - Fetch the same data.
